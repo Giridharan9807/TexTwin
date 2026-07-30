@@ -1,6 +1,29 @@
 # TexTwin – AI-Powered Digital Twin for Smart Textile Weaving Industry
 
-> An AI-powered Digital Twin platform that enables real-time monitoring, predictive maintenance, process optimization, and intelligent decision-making for textile weaving industries.
+An AI-powered Digital Twin platform that enables real-time monitoring, predictive maintenance, process optimization, and intelligent decision-making for textile weaving industries.
+
+---
+
+## 📑 Table of Contents
+- [Project Overview](#-project-overview)
+- [Problem Statement](#-problem-statement)
+- [Objectives](#-objectives)
+- [Proposed Solution](#-proposed-solution)
+- [Features](#-features)
+- [Technology Stack](#-technology-stack)
+- [High-Level System Architecture](#-high-level-system-architecture)
+- [Low-Level Design (LLD)](#-low-level-design-lld)
+- [Functional Requirements](#-functional-requirements)
+- [Non-Functional Requirements](#-non-functional-requirements)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Project Roadmap](#-project-roadmap)
+- [Team Members](#-team-members)
+- [Expected Outcomes](#-expected-outcomes)
+- [Future Scope](#-future-scope)
+- [Day 2 Report](#-day-2-report)
+- [License](#-license)
+- [Acknowledgements](#-acknowledgements)
 
 ---
 
@@ -14,7 +37,7 @@ By integrating IoT, AI, and Digital Twin technology, TexTwin helps manufacturers
 
 ---
 
-# 🎯 Problem Statement
+## 🎯 Problem Statement
 
 The textile weaving industry faces significant challenges, including unexpected machine failures, production downtime, high energy consumption, and inefficient maintenance practices. Existing monitoring systems lack real-time simulation and intelligent decision support.
 
@@ -22,7 +45,7 @@ TexTwin addresses these challenges by creating an AI-powered Digital Twin that c
 
 ---
 
-# 🎯 Objectives
+## 🎯 Objectives
 
 - Develop a Digital Twin for textile weaving machines.
 - Monitor machine health using real-time IoT sensor data.
@@ -36,7 +59,7 @@ TexTwin addresses these challenges by creating an AI-powered Digital Twin that c
 
 ---
 
-# 💡 Proposed Solution
+## 💡 Proposed Solution
 
 TexTwin integrates **IoT devices**, **Artificial Intelligence**, and **Digital Twin technology** into a unified monitoring platform.
 
@@ -46,13 +69,13 @@ A Digital Twin provides a real-time virtual representation of each weaving machi
 
 ---
 
-# ✨ Features
+## ✨ Features
 
-## Asset Management
+### Asset Management
 - Register and manage weaving machines
 - Track machine status and maintenance history
 
-## Real-Time Sensor Monitoring
+### Real-Time Sensor Monitoring
 - Temperature Monitoring
 - Vibration Monitoring
 - RPM Monitoring
@@ -60,24 +83,24 @@ A Digital Twin provides a real-time virtual representation of each weaving machi
 - Power Consumption Monitoring
 - Fabric Output Monitoring
 
-## AI Analytics
+### AI Analytics
 - Predictive Maintenance
 - Failure Prediction
 - Yarn Break Prediction
 - Remaining Useful Life (RUL) Estimation
 - Root Cause Analysis
 
-## Digital Twin
+### Digital Twin
 - Live virtual representation of weaving machines
 - Continuous synchronization with sensor data
 
-## Decision Support
+### Decision Support
 - Maintenance recommendations
 - Production optimization suggestions
 - Intelligent alerts
 - What-if simulations
 
-## Dashboard
+### Dashboard
 - Live machine status
 - Machine health
 - Production analytics
@@ -87,23 +110,37 @@ A Digital Twin provides a real-time virtual representation of each weaving machi
 
 ---
 
-# 🛠️ Technology Stack
+## 🛠️ Technology Stack
 
 | Layer | Technology |
-|--------|------------|
-| Frontend | React.js |
-| Backend | Node.js + Express.js |
-| Database | MongoDB |
-| AI / Machine Learning | Python, Scikit-learn, TensorFlow |
-| IoT | ESP32, MQTT |
-| Real-Time Communication | MQTT / WebSockets |
-| Visualization | Chart.js |
-| Version Control | Git & GitHub |
-| Development Tools | Visual Studio Code, Postman |
+|---|---|
+| **Frontend** | React.js |
+| **Backend** | Node.js + Express.js |
+| **Database** | MongoDB |
+| **AI / Machine Learning** | Python, Scikit-learn, TensorFlow |
+| **IoT** | ESP32, MQTT |
+| **Real-Time Communication** | MQTT / WebSockets |
+| **Visualization** | Chart.js |
+| **Version Control** | Git & GitHub |
+| **Development Tools** | Visual Studio Code, Postman |
 
 ---
 
-# 🏗️ High-Level System Architecture
+## 🏗️ High-Level System Architecture
+
+TexTwin is organized into seven layers:
+
+| Layer | Contents |
+|---|---|
+| **Physical Layer** | Weaving machines, IoT sensors (temperature, vibration, RPM, yarn tension, power, status) |
+| **Edge / IoT Layer** | ESP32 gateway, MQTT protocol, TLS/SSL encryption |
+| **Data Ingestion Layer** | MQTT Broker (HiveMQ), Node.js API Gateway |
+| **Application / Service Layer** | Asset Management, Digital Twin Engine, AI & Analytics Engine, Alert Management, Decision Support, Reporting Service |
+| **Data Layer** | MongoDB (machines, sensor data, predictions, alerts, maintenance, simulations, users, reports) |
+| **Presentation Layer** | Web dashboard (React.js), optional mobile view, alerts/notifications, reports & analytics |
+| **Users** | Factory Supervisor, Operator, Maintenance Engineer, Plant Manager |
+
+**Cross-cutting concerns:** Authentication & Authorization (JWT, RBAC), Security (TLS encryption), Logging & Monitoring (ELK, Prometheus), Backup & Recovery, Scalability & Availability (load balancer, auto-scaling).
 
 ```
                    Physical Weaving Mill
@@ -143,7 +180,79 @@ A Digital Twin provides a real-time virtual representation of each weaving machi
 
 ---
 
-# ⚙️ Functional Requirements
+## 🏗️ Low-Level Design (LLD)
+
+### Module Breakdown
+- **Authentication Module:** login, JWT, roles, permissions
+- **Asset (Machine) Module:** CRUD operations for machines
+- **Sensor Module:** ingest, validate, and store sensor data
+- **Digital Twin Module:** maintain virtual state of machines
+- **AI / Prediction Module:** run ML models, compute health & RUL
+- **Alert Module:** create, manage, and close alerts
+- **Maintenance Module:** maintenance plan, history, and logs
+- **Simulation Module:** what-if analysis and scenario simulation
+- **Report Module:** generate reports (PDF/CSV)
+- **Dashboard Module:** APIs for live dashboards
+- **User & Role Module:** user management, RBAC
+
+### Core Class Diagram (Simplified)
+- `Machine` (`machineId`, `name`, `type`, `location`, `status`, `healthScore`) → has many `Sensors` and `SensorData` readings
+- `SensorData` (`dataId`, `machineId`, `sensorId`, `timestamp`, `temperature`, `vibration`, `rpm`, `yarnTension`, `power`, `status`) → feeds `Prediction`
+- `Prediction` (`predictionId`, `machineId`, `failureProbability`, `rul`, `healthScore`, `confidence`, `recommendation`) → triggers `Alert` and informs `Maintenance`
+- `Maintenance` (`maintenanceId`, `machineId`, `type`, `scheduledDate`, `completedDate`, `engineer`, `cost`, `status`)
+- `Alert` (`alertId`, `machineId`, `alertType`, `severity`, `message`, `triggeredAt`, `acknowledgedBy`, `status`)
+- `Simulation` → `SimulationResult` (`estimatedOutput`, `estimatedEnergy`, `estimatedDowntime`, `healthImpact`, `threadBreaks`, `deliveryImpact`)
+- `User` (`userId`, `name`, `email`, `role`, `status`, `lastLogin`)
+
+### Database Design (MongoDB Collections)
+`machines`, `sensors`, `sensor_data`, `predictions`, `alerts`, `maintenance`, `simulations`, `simulation_results`, `users`, `reports`
+
+### REST API Endpoints (Examples)
+| Resource | Endpoints |
+|---|---|
+| **Machines** | `POST /api/machines`, `GET /api/machines`, `GET /api/machines/{id}`, `PUT /api/machines/{id}`, `DELETE /api/machines/{id}` |
+| **Sensor Data** | `POST /api/sensor-data`, `GET /api/sensor-data/latest`, `GET /api/sensor-data/history`, `GET /api/sensor-data/{machineId}` |
+| **Predictions** | `POST /api/predict/{machineId}`, `GET /api/predictions/{machineId}`, `GET /api/predictions/history/{id}` |
+| **Alerts** | `GET /api/alerts`, `PUT /api/alerts/{id}/ack`, `PUT /api/alerts/{id}/close` |
+| **Maintenance** | `POST /api/maintenance`, `GET /api/maintenance/{machineId}`, `PUT /api/maintenance/{id}` |
+| **Simulations** | `POST /api/simulations`, `GET /api/simulations/{id}/results` |
+| **Dashboard** | `GET /api/dashboard/live`, `GET /api/dashboard/health`, `GET /api/dashboard/energy`, `GET /api/dashboard/production` |
+| **Auth** | `POST /api/auth/login`, `POST /api/auth/refresh`, `POST /api/auth/logout` |
+
+### System Sequence – Live Data → Prediction → Alert
+```
+Sensor (ESP32) → MQTT Broker → Backend API → Database (MongoDB)
+                                     │
+                                     ▼
+                               AI Service → Alert Engine → Dashboard
+```
+1. Sensor publishes data
+2. MQTT forwards to backend
+3. Backend validates & stores data
+4. Triggers prediction engine
+5. AI service checks thresholds & runs ML models
+6. Alert created & notified if anomalies are detected
+7. Dashboard updated in real time via WebSockets
+
+### AI Prediction Flow
+1. Collect historical data
+2. Preprocess & feature engineering
+3. Load ML model
+4. Predict failure probability & RUL
+5. Generate recommendations
+6. Store prediction result
+
+### What-if Simulation Flow
+1. User selects scenario
+2. Load current + historical state
+3. Apply simulation rules (business + ML models)
+4. Estimate impact (production, energy, health, downtime, thread breaks, delivery)
+5. Compare results
+6. Display simulation report
+
+---
+
+## ⚙️ Functional Requirements
 
 - Asset Management
 - Real-Time Sensor Monitoring
@@ -158,20 +267,23 @@ A Digital Twin provides a real-time virtual representation of each weaving machi
 
 ---
 
-# 🔒 Non-Functional Requirements
+## 🔒 Non-Functional Requirements
 
-- Scalable architecture for multiple weaving machines
-- Dashboard updates within 1–3 seconds
-- High system availability (99% uptime target)
-- Reliable data collection and storage
-- Secure authentication and role-based access
-- Modular and maintainable architecture
-- Efficient handling of continuous sensor streams
-- Responsive and user-friendly interface
+| Aspect | Approach |
+|---|---|
+| **Real-time Communication** | MQTT for low-latency sensor ingestion |
+| **Scalability** | Microservices, stateless APIs, horizontal scaling |
+| **Data Consistency** | Timestamps, validation, idempotent ingestion |
+| **Security** | JWT authentication, RBAC, encrypted communication (TLS) |
+| **Availability** | Auto-reconnect (MQTT), retry queue, health checks; 99% uptime target |
+| **Maintainability** | Modular services, clear separation of concerns |
+| **Observability** | Centralized logging, metrics (Prometheus), alerting |
+| **Performance** | Indexed collections, aggregation pipelines, caching (Redis), dashboard updates within 1–3 seconds |
+| **Extensibility** | Pluggable ML models, configurable thresholds & rules |
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
 ```
 TexTwin/
@@ -199,39 +311,57 @@ TexTwin/
 
 ---
 
-# 🔄 System Workflow
+## 🚀 Getting Started
 
+### Prerequisites
+- Node.js (v18+) and npm
+- Python (3.9+) with pip
+- MongoDB (local instance or Atlas connection string)
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/<your-username>/TexTwin.git
+cd TexTwin
+
+# Install backend dependencies
+cd server
+npm install
+
+# Install frontend dependencies
+cd ../client
+npm install
+
+# Install AI model dependencies
+cd ../ai-model
+pip install -r requirements.txt
 ```
-Weaving Machine
-        │
-        ▼
-IoT Sensors
-        │
-        ▼
-ESP32 / MQTT
-        │
-        ▼
-Node.js Server
-        │
-        ▼
-MongoDB Database
-        │
-        ▼
-AI Analytics Engine
-        │
-        ▼
-Digital Twin Engine
-        │
-        ▼
-Decision Support Engine
-        │
-        ▼
-TexTwin Dashboard
+
+### Environment Variables
+
+Create a `.env` file in `server/` with:
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+MQTT_BROKER_URL=your_mqtt_broker_url
+PORT=5000
+```
+
+### Running the Project
+```bash
+# Start backend (from /server)
+npm start
+
+# Start frontend (from /client)
+npm start
+
+# Run AI prediction service (from /ai-model)
+python prediction.py
 ```
 
 ---
 
-# 🚀 Project Roadmap
+## 🚀 Project Roadmap
 
 ### Phase 1 – Research & Planning
 - Industry Analysis
@@ -263,18 +393,18 @@ TexTwin Dashboard
 
 ---
 
-# 👥 Team Members
+## 👥 Team Members
 
 | Name | Role |
-|------|------|
-| **Giridharan** | Full-Stack Development |
+|---|---|
+| **Giridharan** | Team Leader & Full-Stack Development |
 | **Dinesh S** | Backend Development & API Integration |
 | **Madhushri** | AI & Machine Learning |
 | **Madhumitha** | Frontend Development & UI Design |
 
 ---
 
-# 📈 Expected Outcomes
+## 📈 Expected Outcomes
 
 - Real-time visualization of weaving machines
 - Predictive maintenance for reduced downtime
@@ -287,7 +417,7 @@ TexTwin Dashboard
 
 ---
 
-# 🔮 Future Scope
+## 🔮 Future Scope
 
 - Computer Vision for automatic fabric defect detection
 - Edge AI for faster predictions
@@ -299,6 +429,19 @@ TexTwin Dashboard
 
 ---
 
-# 📜 License
+## 📄 Day 2 Report
+
+The Day 2 requirements, empathy study, and LeetCode/aptitude concept mapping have been moved to a dedicated document: `docs/DAY2_REPORT.md`
+
+---
+
+## 📜 License
 
 This project is developed for **academic and educational purposes** as part of the **Digital Twin & AI Manufacturing Program**.
+
+---
+
+## 🙏 Acknowledgements
+
+- Digital Twin & AI Manufacturing Program
+- Open-source libraries and communities supporting IoT, Node.js, React, and Python AI ecosystems.
