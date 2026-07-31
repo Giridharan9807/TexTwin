@@ -393,6 +393,20 @@ python prediction.py
 
 ---
 
+## 🎨 UX & Product Design Principles
+
+TexTwin is built following user-centric design paradigms and cross-functional team collaboration:
+
+1. **🤝 Teamwork**: UX designers collaborate with developers, product managers, and other stakeholders, making UX for product managers one of the most valuable cross-functional skills a team can invest in. They must communicate their ideas clearly, work together on design decisions, and foster a positive team environment.
+2. **❤️ Empathy**: Understanding others’ perspectives, especially users’, is crucial for developing user-centric products. UX designers need to step into the user’s shoes to design experiences that truly meet their needs and expectations.
+3. **💡 Creativity**: Innovation is at the heart of UX design. UX designers must think outside the box to develop unique and practical solutions that stand out.
+4. **🧩 Problem-Solving**: Challenges are part of the design process. UX designers need strong problem-solving skills to identify issues and find creative, effective solutions.
+5. **🔍 User Research**: Gathering insights through surveys, interviews, and usability testing is essential. UX designers rely on this research to inform their design decisions and ensure they’re aligned with user needs.
+6. **📐 Prototyping**: Building interactive prototypes can help UX designers test their design ideas and gather user feedback before moving into development, saving time and resources.
+7. **📊 Understanding of Business Metrics**: UX designers should be familiar with key business metrics, helping them align their work with broader business goals.
+
+---
+
 ## 👥 Team Members
 
 | Name | Role |
