@@ -1,0 +1,31 @@
+# Python environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Datasets
+dataset/raw/*
+!dataset/raw/.gitkeep
+dataset/processed/*
+!dataset/processed/.gitkeep
+dataset/synthetic/*
+!dataset/synthetic/.gitkeep
+
+# Models and checkpoints
+models/trained/*
+!models/trained/.gitkeep
+models/checkpoints/*
+!models/checkpoints/.gitkeep
+models/exported/*
+!models/exported/.gitkeep
+exports/*
+!exports/.gitkeep
+
+# Logs
+logs/*
+!logs/.gitkeep
+*.log
