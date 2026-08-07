@@ -1,14 +1,8 @@
 """
-TexTwin AI SDK
-Version Information
+TexTwin AI Version
 """
 
-__title__ = "TexTwin AI"
-
-__author__ = "TexTwin Team"
-
+__title__ = "TexTwin AI SDK"
 __version__ = "1.0.0"
-
-MODEL_NAME = "TMHP"
-
-MODEL_VERSION = "1.0.0"
+__author__ = "TexTwin Team"
+__license__ = "MIT"
