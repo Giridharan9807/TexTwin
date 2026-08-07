@@ -28,6 +28,9 @@ ml/
 │   ├── checkpoints/          # Intermediate training checkpoints
 │   ├── exported/             # Production-ready serialized inference formats
 │   ├── trained/              # Final trained models
+│   │   ├── label_encoder.pkl # Fitted LabelEncoder for target status labels
+│   │   ├── tmhp_model.pkl    # Trained Random Forest classifier model
+│   │   └── tmhp_model_optimized.pkl # Optimized Random Forest model after Grid Search
 │   └── README.md             # Model artifacts documentation
 │
 ├── notebooks/                # Step-by-step experimentation notebooks
@@ -37,17 +40,28 @@ ml/
 │   ├── 04_model_evaluation.ipynb    # Training validation and ROC/F1 analysis
 │   └── 05_prediction_testing.ipynb  # Verification of real-time prediction feeds
 │
-├── reports/                  # Generated reports and analysis visualization
-│   ├── training_report.md    # Summary of model training sessions
+├── reports/                  # Generated reports, statistics and visualization
+│   ├── best_parameters.txt   # Best parameters and accuracy from grid search tuning
+│   ├── class_distribution.png # Machine status class distribution chart
+│   ├── confusion_matrix.png  # Anomaly prediction evaluation heatmap
+│   ├── correlation_heatmap.png # Correlation heatmap of sensor features
+│   ├── dataset_summary.csv   # Statistical summary table of telemetry dataset
+│   ├── eda_report.md         # Narrative report of exploratory data analysis
 │   ├── evaluation_report.md  # Detailed metrics and validation curves
-│   └── confusion_matrix.png  # Anomaly prediction evaluation heatmap
+│   ├── feature_importance.csv # Feature importances ranking list
+│   ├── model_comparison.csv  # Performance comparison table of candidate algorithms
+│   ├── training_report.md    # Summary of model training sessions
+│   └── *_boxplot.png / *_distribution.png # Distribution visual plots for sensors
 │
 ├── scripts/                  # Standalone executable pipeline scripts
+│   ├── eda.py                # Performs Exploratory Data Analysis & generates plots/reports
+│   ├── evaluate_model.py     # Evaluation metrics, confusion matrix & feature importances
 │   ├── generate_dataset.py   # Script to synthesize telemetry logs
-│   ├── preprocess.py         # Script to perform feature scaling and scaling
-│   ├── train_model.py        # Core model training script
-│   ├── evaluate_model.py     # Evaluation metrics generation script
-│   ├── predict.py            # Inference wrapper for integration
+│   ├── hyperparameter_tuning.py # Grid Search hyperparameter optimization script
+│   ├── model_comparison.py   # Evaluates multiple algorithms (RF, DT, LR, SVM, KNN)
+│   ├── predict.py            # CLI-based inference script for real-time telemetry inputs
+│   ├── preprocess.py         # Performs feature scaling, encoding and data cleaning
+│   ├── train_model.py        # Core Random Forest model training script
 │   └── utils.py              # Utility helper scripts
 │
 ├── .gitignore                # Workspace git ignore configurations
@@ -103,3 +117,52 @@ Refactored, production-ready Python command-line interfaces (CLIs) mapping to ev
    ```bash
    pip install -r requirements.txt
    ```
+
+---
+
+## 🏃 How to Run the Pipeline
+
+Run the scripts in the following order to execute the full pipeline from raw data exploration to real-time inference:
+
+### 1. Data Preprocessing & Cleaning
+Loads the raw telemetry logs, checks for missing/duplicate values, encodes target labels, and performs train-test splitting.
+```bash
+python scripts/preprocess.py
+```
+
+### 2. Exploratory Data Analysis (EDA)
+Generates descriptive statistics, boxplots, histograms, and correlation heatmaps to visualize the distribution of variables.
+```bash
+python scripts/eda.py
+```
+
+### 3. Model Comparison
+Trains and evaluates multiple candidate models (Random Forest, Decision Tree, Logistic Regression, SVM, KNN) to identify the best baseline classifier.
+```bash
+python scripts/model_comparison.py
+```
+
+### 4. Hyperparameter Tuning
+Performs cross-validated grid search to find the optimal hyperparameters for the Random Forest classifier and exports the optimized model.
+```bash
+python scripts/hyperparameter_tuning.py
+```
+
+### 5. Model Training
+Trains the baseline Random Forest classifier on the preprocessed training set and saves the model.
+```bash
+python scripts/train_model.py
+```
+
+### 6. Model Evaluation & Report Generation
+Loads the trained Random Forest classifier, evaluates it on the test partition, and saves evaluation reports, a confusion matrix heatmap, and feature importance rankings.
+```bash
+python scripts/evaluate_model.py
+```
+
+### 7. Interactive Prediction CLI
+An interactive command-line interface to input real-time telemetry sensor values (Temperature, Vibration, RPM, Humidity, Power, Running Hours) and receive a predicted machine status classification along with confidence metrics.
+```bash
+python scripts/predict.py
+```
+
