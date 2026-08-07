@@ -6,6 +6,7 @@ __pycache__/
 *$py.class
 *.pyo
 *.pyd
+*.so
 
 # =====================================================
 # Virtual Environment
@@ -35,6 +36,7 @@ ENV/
 # =====================================================
 .env
 .env.*
+!.env.example
 
 # =====================================================
 # Logs
@@ -43,8 +45,7 @@ logs/
 *.log
 
 # =====================================================
-# Dataset
-# Keep only placeholder files
+# Dataset (Keep only placeholders)
 # =====================================================
 ml/dataset/raw/*
 !ml/dataset/raw/.gitkeep
@@ -56,8 +57,7 @@ ml/dataset/synthetic/*
 !ml/dataset/synthetic/.gitkeep
 
 # =====================================================
-# Models
-# Keep only placeholder files
+# Models (Keep only placeholders)
 # =====================================================
 ml/models/trained/*
 !ml/models/trained/.gitkeep
@@ -69,9 +69,11 @@ ml/models/exported/*
 !ml/models/exported/.gitkeep
 
 # =====================================================
-# Reports (optional)
+# Reports
 # =====================================================
 ml/reports/*.png
+ml/reports/*.jpg
+ml/reports/*.jpeg
 ml/reports/*.csv
 ml/reports/*.pdf
 
@@ -87,11 +89,44 @@ ml/exports/*
 runs/
 
 # =====================================================
-# Build
+# Build Files
 # =====================================================
 build/
 dist/
 *.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# =====================================================
+# Python Cache
+# =====================================================
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# =====================================================
+# Node.js / Next.js
+# =====================================================
+node_modules/
+.next/
+out/
+.vercel/
+.turbo/
+
+# Package Managers
+package-lock.json
+yarn.lock
+pnpm-debug.log
+
+# Keep pnpm lockfile (recommended)
+!pnpm-lock.yaml
+
+# =====================================================
+# TypeScript
+# =====================================================
+*.tsbuildinfo
 
 # =====================================================
 # OS Files
@@ -105,9 +140,26 @@ desktop.ini
 # =====================================================
 *.tmp
 *.temp
+*.bak
+*.swp
 
 # =====================================================
 # SQLite
 # =====================================================
 *.db
 *.sqlite3
+
+# =====================================================
+# ML Artifacts
+# =====================================================
+*.joblib
+*.pkl
+*.h5
+*.keras
+*.onnx
+
+# =====================================================
+# Miscellaneous
+# =====================================================
+.cache/
+.cache-loader/
